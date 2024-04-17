@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:task_hyd/const/colors/app_colors.dart';
 import 'package:task_hyd/const/router/router.gr.dart';
+import 'package:task_hyd/shared/app_loader.dart';
 
 @RoutePage(
   deferredLoading: true,
@@ -30,10 +31,7 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? const Center(
-            // You can replace CircularProgressIndicator with any loader widget you prefer
-            child: CircularProgressIndicator(),
-          )
+        ? const AppLoader()
         : AutoTabsScaffold(
             routes: const [
               HomeRoute(),
@@ -41,7 +39,7 @@ class _NavBarPageState extends State<NavBarPage> {
             ],
             bottomNavigationBuilder: (context, tabsRouter) {
               return NavigationBar(
-                // overlayColor: Colors.white,
+                backgroundColor: AppColors.kBlack,
                 selectedIndex: tabsRouter.activeIndex,
                 onDestinationSelected: tabsRouter.setActiveIndex,
                 indicatorColor: AppColors.kSecondaryBgColor.withOpacity(0.2),

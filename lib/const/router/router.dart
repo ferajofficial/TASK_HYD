@@ -5,6 +5,23 @@ import 'package:task_hyd/const/router/router.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   late final List<AutoRoute> routes = [
-    
+    AdaptiveRoute(
+      page: SplashRoute.page,
+      path: '/splash',
+    ),
+    AdaptiveRoute(page: HomeRoute.page, path: '/home'),
+    AdaptiveRoute(
+      page: NavBarRoute.page,
+      path: '/navbar',
+      initial: true,
+      children: [
+        AdaptiveRoute(page: HomeRoute.page),
+        AdaptiveRoute(page: ShortsRoute.page),
+      ],
+    ),
+    AdaptiveRoute(
+      page: ShortsRoute.page,
+      path: '/Shorts',
+    ),
   ];
 }

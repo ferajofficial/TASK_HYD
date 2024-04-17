@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:task_hyd/features/home/view/home_page.dart';
+import 'package:task_hyd/const/router/router.dart';
 
 class BhasausaTask extends StatelessWidget {
-  const BhasausaTask({super.key});
+  final AppRouter _appRouter = AppRouter();
+
+  BhasausaTask({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home: const HomePage(),
+      routerConfig: _appRouter.config(),
     );
   }
 }

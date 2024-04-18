@@ -39,7 +39,7 @@ class _NavBarPageState extends State<NavBarPage> {
             ],
             bottomNavigationBuilder: (context, tabsRouter) {
               return NavigationBar(
-                backgroundColor: AppColors.kBlack,
+                // backgroundColor: AppColors.kBlack,
                 selectedIndex: tabsRouter.activeIndex,
                 onDestinationSelected: tabsRouter.setActiveIndex,
                 indicatorColor: AppColors.kSecondaryBgColor.withOpacity(0.2),
@@ -52,7 +52,7 @@ class _NavBarPageState extends State<NavBarPage> {
                     icon: Icon(
                       Icons.home,
                       color: tabsRouter.activeIndex == 0
-                          ? AppColors.kSecondaryBgColor
+                          ? AppColors.kBlack
                           : Colors.grey.withOpacity(0.4),
                     ),
                     label: "Home",
@@ -61,7 +61,7 @@ class _NavBarPageState extends State<NavBarPage> {
                     icon: Icon(
                       Icons.video_collection,
                       color: tabsRouter.activeIndex == 1
-                          ? AppColors.kSecondaryBgColor
+                          ? AppColors.kBlack
                           : Colors.grey.withOpacity(0.4),
                     ),
                     label: "Shorts",

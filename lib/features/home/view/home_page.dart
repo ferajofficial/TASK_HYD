@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:task_hyd/const/app-text/app_text.dart';
 import 'package:task_hyd/const/colors/app_colors.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:task_hyd/features/home/widgets/home_body.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
         appBar: AppBar(
           title: const AppText(
-              text: 'Welcome Home Buddy 🚀',
+              text: 'The Bhasause Technologies 🚀 ',
               fontSize: 20,
               fontWeight: FontWeight.w600,
               color: AppColors.kBlack),
@@ -35,22 +35,6 @@ class _HomeViewState extends State<HomeView> {
           elevation: 0,
         ),
         backgroundColor: AppColors.kSecondaryBgColor,
-        body: SafeArea(
-          child: const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              AppText(
-                  text:
-                      'Tap on the shorts button below to\nwatch latest shorts 🎥',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.kBlack,
-                  textAlign: TextAlign.center,
-                  height: 1.5,
-                  maxlines: 2),
-            ],
-          ).p12(),
-        ));
+        body: const HomeBody());
   }
 }

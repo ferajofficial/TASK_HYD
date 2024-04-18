@@ -8,12 +8,12 @@ class AppRouter extends $AppRouter {
     AdaptiveRoute(
       page: SplashRoute.page,
       path: '/splash',
+      initial: true,
     ),
     AdaptiveRoute(page: HomeRoute.page, path: '/home'),
     AdaptiveRoute(
       page: NavBarRoute.page,
       path: '/navbar',
-      initial: true,
       children: [
         AdaptiveRoute(page: HomeRoute.page),
         AdaptiveRoute(page: ShortsRoute.page),

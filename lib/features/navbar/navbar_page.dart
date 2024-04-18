@@ -21,7 +21,7 @@ class _NavBarPageState extends State<NavBarPage> {
   void initState() {
     super.initState();
     // Simulate a 3-second delay using Future.delayed
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds:3), () {
       setState(() {
         isLoading = false;
       });

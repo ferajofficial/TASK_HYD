@@ -29,35 +29,33 @@ class _ShortsViewState extends State<ShortsView> {
     'assets/shorts1.mp4',
   ];
 
-   int _currentIndex = 0;
+  int _currentIndex = 0;
   late PageController _pageController;
   late VideoPlayerController _videoPlayerController;
-  Future<void> _initializeVideoPlayerFuture = Future.value();
+  late Future<void> _initializeVideoPlayerFuture;
 
-  Future<void> _initializeVideoPlayer() async {
-    _videoPlayerController =
-        VideoPlayerController.asset(_shorts[_currentIndex]);
+  Future<void> _initializeVideoPlayer(int index) async {
+    _videoPlayerController = VideoPlayerController.asset(_shorts[index]);
     await _videoPlayerController.initialize();
     _videoPlayerController.play();
     _videoPlayerController.setLooping(true);
-    setState(() {
-      _initializeVideoPlayerFuture = _videoPlayerController.initialize();
-    });
   }
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _currentIndex);
-    _initializeVideoPlayer();
+    _initializeVideoPlayerFuture = _initializeVideoPlayer(_currentIndex);
   }
 
   @override
   void dispose() {
+    _videoPlayerController.pause();
     _videoPlayerController.dispose();
     _pageController.dispose();
     super.dispose();
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -84,12 +82,12 @@ class _ShortsViewState extends State<ShortsView> {
         scrollDirection: Axis.vertical,
         controller: _pageController,
         itemCount: _shorts.length,
-        onPageChanged: (value) {
-          setState(() {
-           _currentIndex=value;
-          });
+        onPageChanged: (index) {
           _videoPlayerController.dispose();
-          _initializeVideoPlayer();
+          setState(() {
+            _currentIndex = index;
+            _initializeVideoPlayerFuture = _initializeVideoPlayer(index);
+          });
         },
         itemBuilder: (context, index) {
           return FutureBuilder(
@@ -98,7 +96,6 @@ class _ShortsViewState extends State<ShortsView> {
               if (snapshot.connectionState == ConnectionState.done) {
                 return AspectRatio(
                   aspectRatio: _videoPlayerController.value.aspectRatio,
-
                   child: GestureDetector(
                     onTap: () {
                       if (_videoPlayerController.value.isPlaying) {
@@ -107,7 +104,9 @@ class _ShortsViewState extends State<ShortsView> {
                         _videoPlayerController.play();
                       }
                     },
-                    child: VideoPlayer(_videoPlayerController)));
+                    child: VideoPlayer(_videoPlayerController),
+                  ),
+                );
               } else {
                 return const Center(
                   child: CircularProgressIndicator(),

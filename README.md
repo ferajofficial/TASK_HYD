@@ -5,9 +5,12 @@
         - In the #ShortsPage short videos are played and have the action buttons : [like,dislike,comment,share]
         - The ActionButton are fixed at the suface of the page and only the body will scroll when user scrolls the body/video.[scroll direction: vertical]
         
-### Tech stack : 
+### Techstack : 
             - Flutter.
             - Dart.
+### Platform : 
+            - Android.
+            - iOS. 
 
 #### Packages Used :
             - auto_route.[for routing purpose]

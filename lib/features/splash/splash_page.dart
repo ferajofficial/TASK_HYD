@@ -28,7 +28,7 @@ class _SplashViewState extends State<SplashView> {
     super.initState();
     // Navigate to the next screen after 5 seconds
     Timer(
-      const Duration(seconds: 2),
+      const Duration(seconds: 3),
       () {
         context.router.replace(const NavBarRoute());
       },

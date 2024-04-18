@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:task_hyd/const/app-text/app_text.dart';
 import 'package:task_hyd/const/colors/app_colors.dart';
+import 'package:task_hyd/features/shorts/widgets/shorts_actions.dart';
+import 'package:task_hyd/shared/app_loader.dart';
 import 'package:video_player/video_player.dart';
 
 @RoutePage()
@@ -55,7 +58,6 @@ class _ShortsViewState extends State<ShortsView> {
     _pageController.dispose();
     super.dispose();
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -63,58 +65,66 @@ class _ShortsViewState extends State<ShortsView> {
       backgroundColor: AppColors.kSecondaryBgColor,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Shorts'),
+        title: const AppText(
+          text: 'Shorts',
+          color: AppColors.kwhite,
+          fontWeight: FontWeight.w500,
+          fontSize: 25,
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.search, color: AppColors.kwhite),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert, color: AppColors.kwhite),
             onPressed: () {},
           ),
         ],
       ),
-      body: PageView.builder(
-        scrollDirection: Axis.vertical,
-        controller: _pageController,
-        itemCount: _shorts.length,
-        onPageChanged: (index) {
-          _videoPlayerController.dispose();
-          setState(() {
-            _currentIndex = index;
-            _initializeVideoPlayerFuture = _initializeVideoPlayer(index);
-          });
-        },
-        itemBuilder: (context, index) {
-          return FutureBuilder(
-            future: _initializeVideoPlayerFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return AspectRatio(
-                  aspectRatio: _videoPlayerController.value.aspectRatio,
-                  child: GestureDetector(
-                    onTap: () {
-                      if (_videoPlayerController.value.isPlaying) {
-                        _videoPlayerController.pause();
-                      } else {
-                        _videoPlayerController.play();
-                      }
-                    },
-                    child: VideoPlayer(_videoPlayerController),
-                  ),
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
+      body: Stack(
+        children: [
+          PageView.builder(
+            scrollDirection: Axis.vertical,
+            controller: _pageController,
+            itemCount: _shorts.length,
+            onPageChanged: (index) {
+              _videoPlayerController.dispose();
+              setState(() {
+                _currentIndex = index;
+                _initializeVideoPlayerFuture = _initializeVideoPlayer(index);
+              });
             },
-          );
-        },
+            itemBuilder: (context, index) {
+              return FutureBuilder(
+                future: _initializeVideoPlayerFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return AspectRatio(
+                      aspectRatio: _videoPlayerController.value.aspectRatio,
+                      child: GestureDetector(
+                        onTap: () {
+                          if (_videoPlayerController.value.isPlaying) {
+                            _videoPlayerController.pause();
+                          } else {
+                            _videoPlayerController.play();
+                          }
+                        },
+                        child: VideoPlayer(_videoPlayerController),
+                      ),
+                    );
+                  } else {
+                    return const AppLoader();
+                  }
+                },
+              );
+            },
+          ),
+          const Positioned(right: 20, bottom: 20, child: ShortsActions()),
+        ],
       ),
     );
   }

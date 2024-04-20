@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
         appBar: AppBar(
           title: const AppText(
-              text: 'The Bhasause Technologies 🚀 ',
+              text: 'Click to fetch datas from the  API 🚀 ',
               fontSize: 20,
               fontWeight: FontWeight.w600,
               color: AppColors.kBlack),

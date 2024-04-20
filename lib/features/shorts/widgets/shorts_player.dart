@@ -39,7 +39,6 @@ class _ShortsPlayerState extends State<ShortsPlayer> {
 
   @override
   void dispose() {
-    // _videoPlayerController.pause();
     _videoPlayerController.dispose();
     _pageController.dispose();
     super.dispose();
